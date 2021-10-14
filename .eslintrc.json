@@ -16,25 +16,25 @@
 		"react"
 	],
 	"rules": {
-		"block-spacing": [
-			"error",
-			"always"
-		],
-		"no-multiple-empty-lines": [
-			2,
-			{
-				"max": 1
-			}
-		],
-		"react/jsx-tag-spacing": [
-			"error",
-			{
-				"beforeSelfClosing": "always",
-				"closingSlash": "never",
-				"afterOpening": "never",
-				"beforeClosing": "never"
-			}
-		],
+		// "block-spacing": [
+		// 	"error",
+		// 	"always"
+		// ],
+		// "no-multiple-empty-lines": [
+		// 	2,
+		// 	{
+		// 		"max": 1
+		// 	}
+		// ],
+		// "react/jsx-tag-spacing": [
+		// 	"error",
+		// 	{
+		// 		"beforeSelfClosing": "always",
+		// 		"closingSlash": "never",
+		// 		"afterOpening": "never",
+		// 		"beforeClosing": "never"
+		// 	}
+		// ],
 		"react/no-multi-comp": [
 			1,
 			{
@@ -43,9 +43,9 @@
 		],
 		"indent": "off",
 		"no-tabs": 0,
-		"no-multi-spaces": [
-			"error"
-		],
+		// "no-multi-spaces": [
+		// 	"error"
+		// ],
 		"quotes": 0,
 		"no-console": 1,
 		"no-debugger": 1,
