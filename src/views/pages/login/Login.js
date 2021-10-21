@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
 	CButton,
 	CCard,
@@ -13,8 +13,8 @@ import {
 	CInputGroupPrepend,
 	CInputGroupText,
 	CRow
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -103,7 +103,7 @@ const Login = () => {
 				</CRow>
 			</CContainer>
 		</div>
-	)
-}
+	);
+};
 
-export default Login
+export default Login;
