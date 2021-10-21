@@ -1,58 +1,63 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
-  CCreateElement,
-  CSidebar,
-  CSidebarBrand,
-  CSidebarNav,
-  CSidebarNavDivider,
-  CSidebarNavTitle,
-  CSidebarMinimizer,
-  CSidebarNavDropdown,
-  CSidebarNavItem,
-} from '@coreui/react'
+	CCreateElement,
+	CSidebar,
+	CSidebarBrand,
+	CSidebarNav,
+	CSidebarNavDivider,
+	CSidebarNavTitle,
+	CSidebarMinimizer,
+	CSidebarNavDropdown,
+	CSidebarNavItem,
+} from '@coreui/react';
 
-import CIcon from '@coreui/icons-react'
+import CIcon from '@coreui/icons-react';
 
 // sidebar nav config
-import navigation from './_nav'
+import navigation from './_nav';
+import axios from 'axios';
 
 const TheSidebar = () => {
-  const dispatch = useDispatch()
-  const show = useSelector(state => state.sidebarShow)
+	const [name, setName] = useState('');
+	const dispatch = useDispatch();
+	const show = useSelector(state => state.sidebarShow);
+	useEffect(() => {
+		const fetachName = async () => {
+			const { name } = await axios.get('api/getName');
+			setName(name);
+		};
+		fetachName();
+	}, []);
 
-  return (
-    <CSidebar
-      show={show}
-      onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
-    >
-      <CSidebarBrand className="d-md-down-none" to="/">
-        <CIcon
-          className="c-sidebar-brand-full"
-          name="logo-negative"
-          height={35}
-        />
-        <CIcon
-          className="c-sidebar-brand-minimized"
-          name="sygnet"
-          height={35}
-        />
-      </CSidebarBrand>
-      <CSidebarNav>
+	return (
+		<CSidebar
+			show={show}
+			onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
+		>
+			<CSidebarBrand className="d-md-down-none" to="/">
+				<h5>Ishan</h5>
+				<CIcon
+					className="c-sidebar-brand-minimized"
+					name="sygnet"
+					height={35}
+				/>
+			</CSidebarBrand>
+			<CSidebarNav>
 
-        <CCreateElement
-          items={navigation}
-          components={{
-            CSidebarNavDivider,
-            CSidebarNavDropdown,
-            CSidebarNavItem,
-            CSidebarNavTitle
-          }}
-        />
-      </CSidebarNav>
-      <CSidebarMinimizer className="c-d-md-down-none"/>
-    </CSidebar>
-  )
-}
+				<CCreateElement
+					items={navigation}
+					components={{
+						CSidebarNavDivider,
+						CSidebarNavDropdown,
+						CSidebarNavItem,
+						CSidebarNavTitle
+					}}
+				/>
+			</CSidebarNav>
+			<CSidebarMinimizer className="c-d-md-down-none" />
+		</CSidebar>
+	);
+};
 
-export default React.memo(TheSidebar)
+export default React.memo(TheSidebar);
