@@ -1,17 +1,21 @@
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux';
+import userReducer from './behaviours/userLogin/reducer';
 
 const initialState = {
 	sidebarShow: 'responsive'
-}
+};
 
 const changeState = (state = initialState, { type, ...rest }) => {
 	switch (type) {
 		case 'set':
-			return { ...state, ...rest }
+			return { ...state, ...rest };
 		default:
-			return state
+			return state;
 	}
-}
-
-const store = createStore(changeState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-export default store
+};
+const rootReducer = combineReducers({
+	changeState,
+	user: userReducer
+});
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+export default store;

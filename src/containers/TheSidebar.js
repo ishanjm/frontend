@@ -22,13 +22,10 @@ const TheSidebar = () => {
 	const [name, setName] = useState('');
 	const dispatch = useDispatch();
 	const show = useSelector(state => state.sidebarShow);
-	useEffect(() => {
-		const fetachName = async () => {
-			const { name } = await axios.get('api/getName');
-			setName(name);
-		};
-		fetachName();
-	}, []);
+	useEffect(async () => {
+		const { data } = await axios.get('api/getName');
+		setName(data.name);
+	}, [name]);
 
 	return (
 		<CSidebar
@@ -36,7 +33,7 @@ const TheSidebar = () => {
 			onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
 		>
 			<CSidebarBrand className="d-md-down-none" to="/">
-				<h5>Ishan</h5>
+				<h5>{name}</h5>
 				<CIcon
 					className="c-sidebar-brand-minimized"
 					name="sygnet"

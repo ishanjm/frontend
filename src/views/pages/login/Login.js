@@ -17,8 +17,11 @@ import {
 import CIcon from '@coreui/icons-react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import { requestUserLogin } from '../../../behaviours/userLogin/actions';
+import PropTypes from 'prop-types';
 
-const Login = () => {
+const Login = ({ requestUserLogin }) => {
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
 			<CContainer>
@@ -33,8 +36,9 @@ const Login = () => {
 											password: '',
 										}}
 										onSubmit={async (values) => {
-											await new Promise((r) => setTimeout(r, 500));
-											alert(JSON.stringify(values, null, 2));
+											// await new Promise((r) => setTimeout(r, 500));
+											// alert(JSON.stringify(values, null, 2));
+											requestUserLogin(values.Username, values.password);
 										}}
 										validationSchema={
 											Yup.object().shape({
@@ -105,5 +109,7 @@ const Login = () => {
 		</div>
 	);
 };
-
-export default Login;
+Login.propTypes = {
+	requestUserLogin: PropTypes.func.isRequired,
+};
+export default connect(null, { requestUserLogin })(Login);
