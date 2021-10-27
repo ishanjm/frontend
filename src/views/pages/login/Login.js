@@ -36,8 +36,6 @@ const Login = ({ requestUserLogin }) => {
 											password: '',
 										}}
 										onSubmit={async (values) => {
-											// await new Promise((r) => setTimeout(r, 500));
-											// alert(JSON.stringify(values, null, 2));
 											requestUserLogin(values.Username, values.password);
 										}}
 										validationSchema={

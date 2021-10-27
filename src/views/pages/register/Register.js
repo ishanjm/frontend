@@ -1,80 +1,121 @@
-import React from 'react'
+import React from 'react';
 import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardFooter,
-  CCol,
-  CContainer,
-  CForm,
-  CInput,
-  CInputGroup,
-  CInputGroupPrepend,
-  CInputGroupText,
-  CRow
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+	CButton,
+	CCard,
+	CCardBody,
+	CCardFooter,
+	CCol,
+	CContainer,
+	CForm,
+	CInput,
+	CInputGroup,
+	CInputGroupPrepend,
+	CInputGroupText,
+	CRow
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { Formik, Field, Form } from 'formik';
+import { requestUserSignUp } from '../../../behaviours/userLogin/actions';
+import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const Register = () => {
-  return (
-    <div className="c-app c-default-layout flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md="9" lg="7" xl="6">
-            <CCard className="mx-4">
-              <CCardBody className="p-4">
-                <CForm>
-                  <h1>Register</h1>
-                  <p className="text-muted">Create your account</p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>
-                        <CIcon name="cil-user" />
-                      </CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CInput type="text" placeholder="Username" autoComplete="username" />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>@</CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CInput type="text" placeholder="Email" autoComplete="email" />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>
-                        <CIcon name="cil-lock-locked" />
-                      </CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CInput type="password" placeholder="Password" autoComplete="new-password" />
-                  </CInputGroup>
-                  <CInputGroup className="mb-4">
-                    <CInputGroupPrepend>
-                      <CInputGroupText>
-                        <CIcon name="cil-lock-locked" />
-                      </CInputGroupText>
-                    </CInputGroupPrepend>
-                    <CInput type="password" placeholder="Repeat password" autoComplete="new-password" />
-                  </CInputGroup>
-                  <CButton color="success" block>Create Account</CButton>
-                </CForm>
-              </CCardBody>
-              <CCardFooter className="p-4">
-                <CRow>
-                  <CCol xs="12" sm="6">
-                    <CButton className="btn-facebook mb-1" block><span>facebook</span></CButton>
-                  </CCol>
-                  <CCol xs="12" sm="6">
-                    <CButton className="btn-twitter mb-1" block><span>twitter</span></CButton>
-                  </CCol>
-                </CRow>
-              </CCardFooter>
-            </CCard>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div>
-  )
-}
-
-export default Register
+const Register = ({ requestUserSignUp }) => {
+	return (
+		<div className="c-app c-default-layout flex-row align-items-center">
+			<CContainer>
+				<CRow className="justify-content-center">
+					<CCol md="9" lg="7" xl="6">
+						<CCard className="mx-4">
+							<CCardBody className="p-4">
+								<Formik
+									initialValues={{
+										Username: '',
+										password: '',
+										email: ''
+									}}
+									onSubmit={async (values) => {
+										requestUserSignUp(values.Username, values.password, values.email);
+									}}
+									validationSchema={
+										Yup.object().shape({
+											Username: Yup.string()
+												.required('Required'),
+											password: Yup.string()
+												.required('Required'),
+											email: Yup.string().email('email is not valid')
+												.required('Required'),
+										})
+									}
+									validateOnChange={false}
+									validateOnBlur={false}
+								>
+									{({ errors }) => (
+										<Form>
+											<h1>Register</h1>
+											<p className="text-muted">Create your account</p>
+											<CInputGroup className="mb-3">
+												<CInputGroupPrepend>
+													<CInputGroupText>
+														<CIcon name="cil-user" />
+													</CInputGroupText>
+												</CInputGroupPrepend>
+												<Field id="Username" name="Username" autoComplete="username" placeholder="username" type="text" className={errors.Username ? "form-control is-invalid" : "form-control"} />
+												{errors.Username ? (
+													<div className="invalid-feedback">{errors.Username}</div>
+												) : null}
+											</CInputGroup>
+											<CInputGroup className="mb-3">
+												<CInputGroupPrepend>
+													<CInputGroupText>@</CInputGroupText>
+												</CInputGroupPrepend>
+												<Field id="email" name="email" autoComplete="email" placeholder="Email" type="text" className={errors.email ? "form-control is-invalid" : "form-control"} />
+												{errors.email ? (
+													<div className="invalid-feedback">{errors.email}</div>
+												) : null}
+											</CInputGroup>
+											<CInputGroup className="mb-3">
+												<CInputGroupPrepend>
+													<CInputGroupText>
+														<CIcon name="cil-lock-locked" />
+													</CInputGroupText>
+												</CInputGroupPrepend>
+												<Field id="password" name="password" autoComplete="current-password" placeholder="password" type="password" className={errors.password ? "form-control is-invalid" : "form-control"} />
+												{errors.password ? (
+													<div className="invalid-feedback">{errors.password}</div>
+												) : null}
+											</CInputGroup>
+											<CInputGroup className="mb-4">
+												<CInputGroupPrepend>
+													<CInputGroupText>
+														<CIcon name="cil-lock-locked" />
+													</CInputGroupText>
+												</CInputGroupPrepend>
+												<CInput type="password" placeholder="Repeat password" autoComplete="new-password" />
+											</CInputGroup>
+											<button className="btn btn-success btn-block" type="submit">Create Account</button>
+										</Form>
+									)}
+								</Formik>
+							</CCardBody>
+							<CCardFooter className="p-4">
+								<CRow>
+									<CCol xs="12" sm="6">
+										<CButton className="btn-facebook mb-1" block><span>facebook</span></CButton>
+									</CCol>
+									<CCol xs="12" sm="6">
+										<CButton className="btn-twitter mb-1" block><span>twitter</span></CButton>
+									</CCol>
+								</CRow>
+							</CCardFooter>
+						</CCard>
+					</CCol>
+				</CRow>
+			</CContainer>
+		</div>
+	);
+};
+Register.propTypes = {
+	requestUserSignUp: PropTypes.func.isRequired,
+};
+export default connect(null, { requestUserSignUp })(Register);
