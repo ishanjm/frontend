@@ -30,16 +30,16 @@ const Register = ({ requestUserSignUp }) => {
 							<CCardBody className="p-4">
 								<Formik
 									initialValues={{
-										Username: '',
+										name: '',
 										password: '',
 										email: ''
 									}}
 									onSubmit={async (values) => {
-										requestUserSignUp(values.Username, values.password, values.email);
+										requestUserSignUp(values.name, values.password, values.email);
 									}}
 									validationSchema={
 										Yup.object().shape({
-											Username: Yup.string()
+											name: Yup.string()
 												.required('Required'),
 											password: Yup.string()
 												.required('Required'),
@@ -60,9 +60,9 @@ const Register = ({ requestUserSignUp }) => {
 														<CIcon name="cil-user" />
 													</CInputGroupText>
 												</CInputGroupPrepend>
-												<Field id="Username" name="Username" autoComplete="username" placeholder="username" type="text" className={errors.Username ? "form-control is-invalid" : "form-control"} />
-												{errors.Username ? (
-													<div className="invalid-feedback">{errors.Username}</div>
+												<Field id="name" name="name" autoComplete="name" placeholder="name" type="text" className={errors.name ? "form-control is-invalid" : "form-control"} />
+												{errors.name ? (
+													<div className="invalid-feedback">{errors.name}</div>
 												) : null}
 											</CInputGroup>
 											<CInputGroup className="mb-3">

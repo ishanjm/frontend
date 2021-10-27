@@ -1,8 +1,7 @@
 import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS } from './constants';
 
 const initialState = {
-	IsUserLoggedIn: false,
-	username: null,
+	infomation: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -10,7 +9,7 @@ const userReducer = (state = initialState, action) => {
 	switch (type) {
 		case USER_SIGNIN_SUCCESS: return {
 			...state,
-			username: payload.data.name
+			infomation: payload
 		};
 		default: return state;
 	}

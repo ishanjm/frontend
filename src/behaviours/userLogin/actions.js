@@ -8,9 +8,9 @@ import {
 	USER_REGISTER_SUCCESS,
 } from './constants';
 
-export const requestUserLogin = (username, password) => ({
+export const requestUserLogin = (email, password) => ({
 	type: USER_SIGNIN_REQUEST,
-	payload: { username, password }
+	payload: { email, password }
 });
 
 export const requestUserSignUp = (username, password, email) => ({
