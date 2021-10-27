@@ -1,8 +1,8 @@
 import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAIL } from './constants';
 
 const initialState = {
-	infomation: null,
-	validationMessage: null
+	information: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
+	validationMessage: null,
 };
 
 const userReducer = (state = initialState, action) => {

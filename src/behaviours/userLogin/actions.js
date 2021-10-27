@@ -13,7 +13,7 @@ export const requestUserLogin = (email, password) => ({
 	payload: { email, password }
 });
 
-export const requestUserSignUp = (username, password, email) => ({
+export const requestUserSignUp = (name, password, email) => ({
 	type: USER_REGISTER_REQUEST,
-	payload: { username, password, email }
+	payload: { name, password, email }
 });

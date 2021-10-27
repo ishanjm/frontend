@@ -21,14 +21,18 @@ import { connect } from 'react-redux';
 import { requestUserLogin } from '../../../behaviours/userLogin/actions';
 import PropTypes from 'prop-types';
 
-const Login = ({ requestUserLogin, validationMessage }) => {
+const Login = ({ requestUserLogin, validationMessage, userInfo, ...props }) => {
+	const redireact = props.location.search ? props.location.search.split('=')[1] : '/';
+	useEffect(() => {
+		if (userInfo)
+			props.history.push(redireact);
+	}, [userInfo]);
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
 			<CContainer>
 				<CRow className="justify-content-center">
 					<CCol md="8">
 						<CCardGroup>
-
 							<CCard className="p-4">
 								<CCardBody>
 									<Formik
@@ -114,9 +118,11 @@ const Login = ({ requestUserLogin, validationMessage }) => {
 };
 Login.propTypes = {
 	requestUserLogin: PropTypes.func.isRequired,
-	validationMessage: PropTypes.string
+	validationMessage: PropTypes.string,
+	userInfo: PropTypes.object
 };
 const mapStateToProps = state => ({
-	validationMessage: state.user.validationMessage
+	validationMessage: state.user.validationMessage,
+	userInfo: state.user.information,
 });
 export default connect(mapStateToProps, { requestUserLogin })(Login);
