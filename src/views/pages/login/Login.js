@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
 	CButton,
@@ -21,13 +21,14 @@ import { connect } from 'react-redux';
 import { requestUserLogin } from '../../../behaviours/userLogin/actions';
 import PropTypes from 'prop-types';
 
-const Login = ({ requestUserLogin }) => {
+const Login = ({ requestUserLogin, validationMessage }) => {
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
 			<CContainer>
 				<CRow className="justify-content-center">
 					<CCol md="8">
 						<CCardGroup>
+
 							<CCard className="p-4">
 								<CCardBody>
 									<Formik
@@ -53,6 +54,10 @@ const Login = ({ requestUserLogin }) => {
 											<Form>
 												<h1>Login</h1>
 												<p className="text-muted">Sign In to your account</p>
+												{validationMessage && <div class="alert alert-danger fade show" role="alert">{validationMessage}</div>
+
+												}
+
 												<CInputGroup className="mb-3">
 													<CInputGroupPrepend>
 														<CInputGroupText>
@@ -109,5 +114,9 @@ const Login = ({ requestUserLogin }) => {
 };
 Login.propTypes = {
 	requestUserLogin: PropTypes.func.isRequired,
+	validationMessage: PropTypes.string
 };
-export default connect(null, { requestUserLogin })(Login);
+const mapStateToProps = state => ({
+	validationMessage: state.user.validationMessage
+});
+export default connect(mapStateToProps, { requestUserLogin })(Login);
