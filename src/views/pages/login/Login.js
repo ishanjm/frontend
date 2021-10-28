@@ -24,7 +24,7 @@ import PropTypes from 'prop-types';
 const Login = ({ requestUserLogin, validationMessage, userInfo, ...props }) => {
 	const redireact = props.location.search ? props.location.search.split('=')[1] : '/';
 	useEffect(() => {
-		if (userInfo)
+		if (userInfo && localStorage.getItem('userInfo'))
 			props.history.push(redireact);
 	}, [userInfo]);
 	return (
@@ -37,8 +37,8 @@ const Login = ({ requestUserLogin, validationMessage, userInfo, ...props }) => {
 								<CCardBody>
 									<Formik
 										initialValues={{
-											email: 'test@test.com',
-											password: 'test',
+											email: '',
+											password: '',
 										}}
 										onSubmit={async (values) => {
 											requestUserLogin(values.email, values.password);
@@ -58,10 +58,7 @@ const Login = ({ requestUserLogin, validationMessage, userInfo, ...props }) => {
 											<Form>
 												<h1>Login</h1>
 												<p className="text-muted">Sign In to your account</p>
-												{validationMessage && <div class="alert alert-danger fade show" role="alert">{validationMessage}</div>
-
-												}
-
+												{validationMessage && <div className="alert alert-danger fade show" role="alert">{validationMessage}</div>}
 												<CInputGroup className="mb-3">
 													<CInputGroupPrepend>
 														<CInputGroupText>

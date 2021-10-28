@@ -2,7 +2,14 @@ import { from, of } from 'rxjs';
 import axios from 'axios';
 import { ofType } from "redux-observable";
 import { mergeMap, map, catchError } from "rxjs/operators";
-import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_REGISTER_REQUEST, USER_SIGNIN_FAIL, USER_REGISTER_SUCCESS } from './constants';
+import {
+	USER_SIGNIN_REQUEST,
+	USER_SIGNIN_SUCCESS,
+	USER_REGISTER_REQUEST,
+	USER_SIGNIN_FAIL,
+	USER_REGISTER_SUCCESS,
+	USER_REGISTER_FAIL
+} from './constants';
 
 export const userLoginEpic = action$ =>
 	action$.pipe(
@@ -34,7 +41,7 @@ export const userSignUpEpic = action$ =>
 					payload: response,
 				})),
 				catchError((error) => of({
-					type: 'FAIL',
+					type: USER_REGISTER_FAIL,
 					payload: error.response,
 				})
 				)

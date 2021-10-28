@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	CButton,
 	CCard,
@@ -20,7 +20,12 @@ import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Register = ({ requestUserSignUp }) => {
+const Register = ({ requestUserSignUp, validationMessage, userInfo, ...props }) => {
+	useEffect(() => {
+		debugger;
+		if (userInfo)
+			props.history.push('/login');
+	}, [userInfo]);
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
 			<CContainer>
@@ -118,4 +123,8 @@ const Register = ({ requestUserSignUp }) => {
 Register.propTypes = {
 	requestUserSignUp: PropTypes.func.isRequired,
 };
-export default connect(null, { requestUserSignUp })(Register);
+const mapStateToProps = state => ({
+	validationMessage: state.user.validationMessage,
+	userInfo: state.user.information,
+});
+export default connect(mapStateToProps, { requestUserSignUp })(Register);
