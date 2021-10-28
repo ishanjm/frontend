@@ -7,7 +7,7 @@ const initialState = {
 	sidebarShow: 'responsive'
 };
 
-const changeState = (state = initialState, { type, ...rest }) => {
+const applicationState = (state = initialState, { type, ...rest }) => {
 	switch (type) {
 		case 'set':
 			return { ...state, ...rest };
@@ -16,7 +16,7 @@ const changeState = (state = initialState, { type, ...rest }) => {
 	}
 };
 const rootReducer = combineReducers({
-	changeState,
+	applicationState,
 	user: userReducer
 });
 
