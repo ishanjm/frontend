@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 
 const Register = ({ requestUserSignUp, validationMessage, userInfo, ...props }) => {
 	useEffect(() => {
-		debugger;
 		if (userInfo)
 			props.history.push('/login');
 	}, [userInfo]);
