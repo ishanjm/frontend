@@ -37,8 +37,8 @@ const Login = ({ requestUserLogin, validationMessage, userInfo, ...props }) => {
 								<CCardBody>
 									<Formik
 										initialValues={{
-											email: '',
-											password: '',
+											email: 'test@test.com',
+											password: 'test',
 										}}
 										onSubmit={async (values) => {
 											requestUserLogin(values.email, values.password);
