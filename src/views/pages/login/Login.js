@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
 	CButton,
 	CCard,
@@ -13,12 +13,20 @@ import {
 	CInputGroupPrepend,
 	CInputGroupText,
 	CRow
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import { requestUserLogin } from '../../../behaviours/userLogin/actions';
+import PropTypes from 'prop-types';
 
-const Login = () => {
+const Login = ({ requestUserLogin, validationMessage, userInfo, ...props }) => {
+	const redireact = props.location.search ? props.location.search.split('=')[1] : '/';
+	useEffect(() => {
+		if (userInfo && localStorage.getItem('userInfo'))
+			props.history.push(redireact);
+	}, [userInfo]);
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">
 			<CContainer>
@@ -29,16 +37,15 @@ const Login = () => {
 								<CCardBody>
 									<Formik
 										initialValues={{
-											Username: '',
+											email: '',
 											password: '',
 										}}
 										onSubmit={async (values) => {
-											await new Promise((r) => setTimeout(r, 500));
-											alert(JSON.stringify(values, null, 2));
+											requestUserLogin(values.email, values.password);
 										}}
 										validationSchema={
 											Yup.object().shape({
-												Username: Yup.string()
+												email: Yup.string().email('email is not valid')
 													.required('Required'),
 												password: Yup.string()
 													.required('Required'),
@@ -51,15 +58,16 @@ const Login = () => {
 											<Form>
 												<h1>Login</h1>
 												<p className="text-muted">Sign In to your account</p>
+												{validationMessage && <div className="alert alert-danger fade show" role="alert">{validationMessage}</div>}
 												<CInputGroup className="mb-3">
 													<CInputGroupPrepend>
 														<CInputGroupText>
 															<CIcon name="cil-user" />
 														</CInputGroupText>
 													</CInputGroupPrepend>
-													<Field id="Username" name="Username" autoComplete="username" placeholder="username" type="text" className={errors.Username ? "form-control is-invalid" : "form-control"} />
-													{errors.Username ? (
-														<div className="invalid-feedback">{errors.Username}</div>
+													<Field id="email" name="email" autoComplete="email" placeholder="email" type="text" className={errors.email ? "form-control is-invalid" : "form-control"} />
+													{errors.email ? (
+														<div className="invalid-feedback">{errors.email}</div>
 													) : null}
 												</CInputGroup>
 												<CInputGroup className="mb-4">
@@ -103,7 +111,15 @@ const Login = () => {
 				</CRow>
 			</CContainer>
 		</div>
-	)
-}
-
-export default Login
+	);
+};
+Login.propTypes = {
+	requestUserLogin: PropTypes.func.isRequired,
+	validationMessage: PropTypes.string,
+	userInfo: PropTypes.object
+};
+const mapStateToProps = state => ({
+	validationMessage: state.user.validationMessage,
+	userInfo: state.user.information,
+});
+export default connect(mapStateToProps, { requestUserLogin })(Login);
