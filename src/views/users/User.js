@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import usersData from './UsersData';
 
 const User = ({ match, usersData }) => {
-	debugger;
-	const user = usersData.find(user => user._id.toString() === match.params.id)
+	const user = usersData.find(user => user._id.toString() === match.params.id);
 	const userDetails = user ? Object.entries(user) :
-		[['id', (<span><CIcon className="text-muted" name="cui-icon-ban" /> Not found</span>)]]
+		[['id', (<span><CIcon className="text-muted" name="cui-icon-ban" /> Not found</span>)]];
 
 	return (
 		<CRow>
