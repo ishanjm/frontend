@@ -19,21 +19,14 @@ import navigation from './_nav';
 import axios from 'axios';
 
 const TheSidebar = () => {
-	const [name, setName] = useState('');
 	const dispatch = useDispatch();
 	const show = useSelector(state => state.applicationState.sidebarShow);
-	useEffect(async () => {
-		const { data } = await axios.get('api/getName');
-		setName(data.name);
-	}, [name]);
-
 	return (
 		<CSidebar
 			show={show}
 			onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
 		>
 			<CSidebarBrand className="d-md-down-none" to="/">
-				<h5>{name}</h5>
 				<CIcon
 					className="c-sidebar-brand-minimized"
 					name="sygnet"

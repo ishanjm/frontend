@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { createEpicMiddleware } from "redux-observable";
 import userReducer from './behaviours/userLogin/reducer';
+import userDetailReducer from './behaviours/user/reducer';
 import rootEpic from './rootEpic';
 
 const initialState = {
@@ -17,7 +18,8 @@ const applicationState = (state = initialState, { type, ...rest }) => {
 };
 const rootReducer = combineReducers({
 	applicationState,
-	user: userReducer
+	user: userReducer,
+	userDetails: userDetailReducer
 });
 
 const epicMiddleware = createEpicMiddleware();
