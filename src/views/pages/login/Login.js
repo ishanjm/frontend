@@ -120,6 +120,6 @@ Login.propTypes = {
 };
 const mapStateToProps = state => ({
 	validationMessage: state.user.validationMessage,
-	userInfo: state.user.information,
+	userInfo: state.user.userInfo,
 });
 export default connect(mapStateToProps, { requestUserLogin })(Login);

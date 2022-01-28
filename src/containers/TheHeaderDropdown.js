@@ -104,6 +104,6 @@ TheHeaderDropdown.propTypes = {
 	username: PropTypes.string,
 };
 const mapStateToProps = state => ({
-	username: state.user.information && state.user.information.name ? state.user.information.name : ''
+	username: state.user.userInfo && state.user.userInfo.name ? state.user.userInfo.name : ''
 });
 export default connect(mapStateToProps, { requestUserLogOut })(TheHeaderDropdown);

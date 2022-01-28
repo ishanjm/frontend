@@ -6,17 +6,12 @@ import {
 	CLink
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
-import { link } from 'react-router-dom';
 
 const Settings = () => {
 	return (
 		<CRow>
 			<CCol xs="12" sm="6" lg="3">
-				<CLink
-					className="c-subheader-nav-link"
-					aria-current="page"
-					to="/users"
-				>
+				<CLink to="/users">
 					<CWidgetIcon text="Users" color="primary">
 						<CIcon width={24} name="cil-user" />
 					</CWidgetIcon>
