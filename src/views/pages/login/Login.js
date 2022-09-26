@@ -22,10 +22,10 @@ import { requestUserLogin } from '../../../behaviours/userLogin/actions';
 import PropTypes from 'prop-types';
 
 const Login = ({ requestUserLogin, validationMessage, userInfo, ...props }) => {
-	const redireact = props.location.search ? props.location.search.split('=')[1] : '/';
+	const redirect = props.location.search ? props.location.search.split('=')[1] : '/';
 	useEffect(() => {
 		if (userInfo && localStorage.getItem('userInfo'))
-			props.history.push(redireact);
+			props.history.push(redirect);
 	}, [userInfo]);
 	return (
 		<div className="c-app c-default-layout flex-row align-items-center">

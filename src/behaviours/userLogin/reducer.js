@@ -5,7 +5,6 @@ import { isExpired } from "react-jwt";
 const userInfo = localStorage.getItem('userInfo');
 
 const isExpiredToken = loginInfo => {
-	debugger;
 	return isExpired(JSON.parse(loginInfo).token);
 
 };
