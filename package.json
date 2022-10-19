@@ -53,7 +53,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.13.14",
-		"auto-changelog": "~2.2.1",
+		"auto-changelog": "~2.2.1"
 	},
 	"scripts": {
 		"start": "react-scripts start",
