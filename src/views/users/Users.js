@@ -59,6 +59,11 @@ const Users = ({ userInfo, requestUserList }) => {
 								, 'createdAt', 'createdAt'
 							]}
 							hover
+							columnFilter
+							tableFilter
+							itemsPerPageSelect
+							sorter
+							pagination
 							striped
 							itemsPerPage={5}
 							activePage={page}

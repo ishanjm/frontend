@@ -1,7 +1,16 @@
 import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNOUT_REQUEST, USER_REGISTER_SUCCESS } from './constants';
+import { isExpired } from "react-jwt";
+
+
+const userInfo = localStorage.getItem('userInfo');
+
+const isExpiredToken = loginInfo => {
+	return isExpired(JSON.parse(loginInfo).token);
+
+};
 
 const initialState = {
-	information: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
+	userInfo: userInfo && !isExpiredToken(userInfo) ? JSON.parse(userInfo) : null,
 	validationMessage: null,
 };
 
@@ -11,7 +20,7 @@ const userReducer = (state = initialState, action) => {
 		case USER_SIGNIN_SUCCESS: return {
 			...state,
 			validationMessage: null,
-			information: payload
+			userInfo: payload
 		};
 		case USER_SIGNIN_FAIL: return {
 			...state,
@@ -19,11 +28,11 @@ const userReducer = (state = initialState, action) => {
 		};
 		case USER_SIGNOUT_REQUEST: return {
 			...state,
-			information: null
+			userInfo: null
 		};
 		case USER_REGISTER_SUCCESS: return {
 			...state,
-			information: payload.data
+			userInfo: payload.data
 		};
 		default: return state;
 	}
