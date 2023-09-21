@@ -14,7 +14,7 @@ import {
 export const userLoginEpic = action$ =>
 	action$.pipe(
 		ofType(USER_SIGNIN_REQUEST),
-		mergeMap(action => from(axios.post('http://localhost:5000/api/user/signIn', { email: action.payload.email, password: action.payload.password }))
+		mergeMap(action => from(axios.post('https://profound-griffin-361440.netlify.app/api/user/signIn', { email: action.payload.email, password: action.payload.password }))
 			.pipe(
 				map(response => {
 					localStorage.setItem('userInfo', JSON.stringify(response.data));
