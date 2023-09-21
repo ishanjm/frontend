@@ -25,7 +25,7 @@ const User = ({ match, usersData }) => {
 										return (
 											<tr key={index.toString()}>
 												<td>{`${key}:`}</td>
-												<td><strong>{value}</strong></td>
+												<td><strong>{value.toString()}</strong></td>
 											</tr>
 										);
 									})
