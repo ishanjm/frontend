@@ -11,7 +11,7 @@ import {
 export const getAllUsersEpic = action$ =>
 	action$.pipe(
 		ofType(GET_USER_LIST_REQUEST),
-		mergeMap(action => from(axios.get('https://profound-griffin-361440.netlify.app/api/user/get-all'))
+		mergeMap(action => from(axios.get('http://localhost:5000/api/user/get-all'))
 			.pipe(
 				map(response => {
 					return {
